@@ -39,7 +39,8 @@ class Splash:
                           [self.image_width, self.image_height],
                           [GAME_WIDTH / 2, GAME_HEIGHT / 2],
                           [self.image_width, self.image_height])
-
+    def hide(self):
+        self.splash = None
 
 class Bird:
     def __init__(self):
@@ -60,7 +61,7 @@ class Game:
         self.frame = simplegui.create_frame("Flappy Bird", GAME_WIDTH, GAME_HEIGHT)
         self.frame.start()
         self.register_handlers()
-
+        self.game_is_started = False
         self.background = Background()
         self.bird = Bird()
         self.splash = Splash()
@@ -68,10 +69,17 @@ class Game:
     def draw(self, canvas):
         self.background.draw(canvas)
         self.bird.draw(canvas)
-        self.splash.draw(canvas)
+        if not self.game_is_started:
+            self.splash.draw(canvas)
+
+    def key_pressed(self, key):
+        if not self.game_is_started:
+            self.splash.hide()
+            self.game_is_started = True
 
     def register_handlers(self):
         self.frame.set_draw_handler(self.draw)
+        self.frame.set_keydown_handler(self.key_pressed)
 
 
 game = Game()
