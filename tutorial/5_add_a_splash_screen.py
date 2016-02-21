@@ -1,61 +1,58 @@
 import simplegui
 
-GAME_WIDTH = 384
-GAME_HEIGHT = 448
+
 BACKGROUND_WIDTH = 768
 BACKGROUND_HEIGHT = 896
-BIRD_WIDTH = 43
-BIRD_HEIGHT = 30
-BACKGROUND_SKY = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/stage_sky.png"
-BIRD = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/bird.png"
-SPLASH_IMAGE = "https://raw.githubusercontent.com/sourabhv/FlapPyBird/master/assets/sprites/message.png"
-
+BACKGROUND_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/stage_sky.png"
 class Background:
     def __init__(self):
-        self.image_width = BACKGROUND_WIDTH
-        self.image_height = BACKGROUND_HEIGHT
-        self.width = GAME_WIDTH
-        self.height = GAME_HEIGHT
-        self.background = simplegui.load_image(BACKGROUND_SKY)
+        self.background_image = simplegui.load_image(BACKGROUND_IMAGE)
 
     def draw(self, canvas):
-        canvas.draw_image(self.background,
-                          [self.image_width / 2, self.image_height / 2],
-                          [self.image_width, self.image_height],
-                          [self.width / 2, self.height / 2],
-                          [self.width, self.height])
+        canvas.draw_image(self.background_image,
+                          [BACKGROUND_WIDTH / 2, BACKGROUND_HEIGHT / 2],
+                          [BACKGROUND_WIDTH, BACKGROUND_HEIGHT],
+                          [GAME_WIDTH / 2, GAME_HEIGHT / 2],
+                          [GAME_WIDTH, GAME_HEIGHT])
 
+
+SPLASH_WIDTH = 184
+SPLASH_HEIGHT = 267
+SPLASH_IMAGE = "https://raw.githubusercontent.com/sourabhv/FlapPyBird/master/assets/sprites/message.png"
 class Splash:
     def __init__(self):
-        self.image_width = 184
-        self.image_height = 267
-        self.width = GAME_WIDTH
-        self.height = GAME_HEIGHT
         self.splash = simplegui.load_image(SPLASH_IMAGE)
 
     def draw(self, canvas):
         canvas.draw_image(self.splash,
-                          [self.image_width / 2, self.image_height / 2],
-                          [self.image_width, self.image_height],
+                          [SPLASH_WIDTH / 2, SPLASH_HEIGHT / 2],
+                          [SPLASH_WIDTH, SPLASH_HEIGHT],
                           [GAME_WIDTH / 2, GAME_HEIGHT / 2],
-                          [self.image_width, self.image_height])
+                          [SPLASH_WIDTH, SPLASH_HEIGHT])
     def hide(self):
         self.splash = None
 
+
+BIRD_WIDTH = 43
+BIRD_HEIGHT = 32
+BIRD_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/bird.png"
 class Bird:
     def __init__(self):
         self.width = BIRD_WIDTH
         self.height = BIRD_HEIGHT
-        self.set_pos(99, 260)
-        self.image = simplegui.load_image(BIRD)
+        self.center_x = 99
+        self.center_y = 260
+        self.image = simplegui.load_image(BIRD_IMAGE)
 
     def draw(self, canvas):
-        canvas.draw_image(self.image, [86/2, 60/2], [86, 60],
-                          [self.center_x, self.center_y], [self.width, self.height])
-    def set_pos(self, x, y):
-        self.center_x = x if x >= 0 else 0
-        self.center_y = y if y >= 0 else 0
+        canvas.draw_image(self.image,
+                          [BIRD_WIDTH / 2, BIRD_HEIGHT / 2],
+                          [BIRD_WIDTH, BIRD_HEIGHT],
+                          [self.center_x, self.center_y],
+                          [BIRD_WIDTH, BIRD_HEIGHT])
 
+GAME_WIDTH = 384
+GAME_HEIGHT = 448
 class Game:
     def __init__(self):
         self.frame = simplegui.create_frame("Flappy Bird", GAME_WIDTH, GAME_HEIGHT)

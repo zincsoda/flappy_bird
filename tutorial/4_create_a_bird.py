@@ -1,37 +1,41 @@
 import simplegui
 
-GAME_WIDTH = 384
-GAME_HEIGHT = 448
-BIRD_WIDTH = 43
-BIRD_HEIGHT = 30
-BACKGROUND_SKY = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/stage_sky.png"
-BIRD = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/bird.png"
 
+BACKGROUND_WIDTH = 768
+BACKGROUND_HEIGHT = 896
+BACKGROUND_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/stage_sky.png"
 class Background:
     def __init__(self):
-        self.width = GAME_WIDTH
-        self.height = GAME_HEIGHT
-        self.background = simplegui.load_image(BACKGROUND_SKY)
+        self.background_image = simplegui.load_image(BACKGROUND_IMAGE)
 
     def draw(self, canvas):
-        canvas.draw_image(self.background, [768/2, 896/2],
-                          [768, 896], [self.width / 2, self.height / 2],
-                          [self.width, self.height])
+        canvas.draw_image(self.background_image,
+                          [BACKGROUND_WIDTH / 2, BACKGROUND_HEIGHT / 2],
+                          [BACKGROUND_WIDTH, BACKGROUND_HEIGHT],
+                          [GAME_WIDTH / 2, GAME_HEIGHT / 2],
+                          [GAME_WIDTH, GAME_HEIGHT])
 
+
+BIRD_WIDTH = 43
+BIRD_HEIGHT = 32
+BIRD_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/bird.png"
 class Bird:
     def __init__(self):
         self.width = BIRD_WIDTH
         self.height = BIRD_HEIGHT
-        self.set_pos(99, 237)
-        self.image = simplegui.load_image(BIRD)
+        self.center_x = 99
+        self.center_y = 260
+        self.image = simplegui.load_image(BIRD_IMAGE)
 
     def draw(self, canvas):
-        canvas.draw_image(self.image, [86/2, 60/2], [86, 60],
-                          [self.center_x, self.center_y], [self.width, self.height])
-    def set_pos(self, x, y):
-        self.center_x = x if x >= 0 else 0
-        self.center_y = y if y >= 0 else 0
+        canvas.draw_image(self.image,
+                          [BIRD_WIDTH / 2, BIRD_HEIGHT / 2],
+                          [BIRD_WIDTH, BIRD_HEIGHT],
+                          [self.center_x, self.center_y],
+                          [BIRD_WIDTH, BIRD_HEIGHT])
 
+GAME_WIDTH = 384
+GAME_HEIGHT = 448
 class Game:
     def __init__(self):
         self.frame = simplegui.create_frame("Flappy Bird", GAME_WIDTH, GAME_HEIGHT)
@@ -39,6 +43,7 @@ class Game:
         self.background = Background()
         self.bird = Bird()
         self.register_handlers()
+
 
     def draw(self, canvas):
         self.background.draw(canvas)
