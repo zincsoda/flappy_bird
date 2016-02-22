@@ -58,17 +58,17 @@ class Bird:
 PIPE_BODY_WIDTH = 64
 PIPE_HEAD_WIDTH = 69
 PIPE_HEAD_HEIGHT = 32
-PIPE_GAP_X = 209
-PIPE_GAP_Y = 128
+PIPE_OPENING_HEIGHT = 128
 PIPE_HEAD_HEIGHT = 32
 PIPE_BODY_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/pipe_body.png"
 PIPE_HEAD_DOWN_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/pipe_down_head.png"
 PIPE_HEAD_UP_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/pipe_up_head.png"
+GROUND_SPEED = 3
 class Pipe:
     def __init__(self, pos):
         self.center_x = pos
-        self.y_top = random.randrange(PIPE_HEAD_HEIGHT * 2, GAME_HEIGHT - PIPE_GAP_Y - (PIPE_HEAD_HEIGHT * 2))
-        self.y_bottom = self.y_top + PIPE_GAP_Y
+        self.y_top = random.randrange(PIPE_HEAD_HEIGHT * 2, GAME_HEIGHT - PIPE_OPENING_HEIGHT - (PIPE_HEAD_HEIGHT * 2))
+        self.y_bottom = self.y_top + PIPE_OPENING_HEIGHT
         self.is_stop = True
         self.is_passed = False
         self.pipe_body_image = simplegui.load_image(PIPE_BODY_IMAGE)
@@ -77,6 +77,7 @@ class Pipe:
 
 
     def draw(self, canvas):
+        self.update_position()
         # Top Pipe Body
         canvas.draw_image(self.pipe_body_image,
                           [PIPE_BODY_WIDTH / 2, 1 / 2],
@@ -103,7 +104,7 @@ class Pipe:
                           [self.center_x, (GAME_HEIGHT/2 + self.y_bottom/2 + (PIPE_HEAD_HEIGHT/2))],
                           [PIPE_BODY_WIDTH, (GAME_HEIGHT - self.y_bottom - PIPE_HEAD_HEIGHT)])
 
-    def update_pos(self):
+    def update_position(self):
         self.center_x -= GROUND_SPEED
 
 
@@ -116,7 +117,7 @@ class Game:
         self.background = Background()
         self.bird = Bird()
         self.register_handlers()
-        self.pipe = Pipe(GAME_WIDTH * 3 / 4)
+        self.pipe = Pipe(GAME_WIDTH)
 
     def draw(self, canvas):
         self.background.draw(canvas)
