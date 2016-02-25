@@ -52,7 +52,6 @@ class Score:
     def score_a_point(self):
         self.score_sound.rewind()
         self.score_sound.play()
-        print "Score!"
         self.score += 1
 
     def draw_score(self, canvas):
@@ -116,10 +115,6 @@ class Bird:
         if (abs(nearest_pipe.center_x - self.center_x) < BIRD_WIDTH / 2.0 + PIPE_HEAD_WIDTH / 2.0) and \
            ((self.center_y - (BIRD_HEIGHT / 2) + 1 < nearest_pipe.y_top) or \
            (self.center_y + (BIRD_HEIGHT / 2) - 1 > nearest_pipe.y_bottom)):
-            print "nearest_pipe.center_x:", nearest_pipe.center_x
-            print "PIPE_HEAD_WIDTH / 2:", PIPE_HEAD_WIDTH / 2
-            print "self.center_x:", self.center_x
-            print "BIRD_WIDTH / 2:", BIRD_WIDTH / 2
             return True
 
     def kill(self):
@@ -249,7 +244,6 @@ class Game:
         if self.pipe_creator.pipes:
             nearest_pipe = self.pipe_creator.pipes[0]
             if self.bird.crash(nearest_pipe):
-                print "Crash"
                 self.game_over = True
                 self.bird.kill()
                 self.pipe_creator.stop()
