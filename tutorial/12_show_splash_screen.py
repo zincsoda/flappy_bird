@@ -69,6 +69,7 @@ BIRD_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/bird
 GRAVITY = 0.6
 FLAP_SPEED = 8.5
 FLAP_SOUND = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/flap.wav"
+HIT_SOUND = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/hit.wav"
 class Bird:
     def __init__(self):
         self.center_x = 99
@@ -77,6 +78,7 @@ class Bird:
         self.gravity = 0
         self.image = simplegui.load_image(BIRD_IMAGE)
         self.flap_sound = simplegui.load_sound(FLAP_SOUND)
+        self.hit_sound = simplegui.load_sound(HIT_SOUND)
         self.is_dead = False
 
     def draw(self, canvas):
@@ -124,6 +126,7 @@ class Bird:
         self.gravity = 0
         self.speed = 0
         self.is_dead = True
+        self.hit_sound.play()
 
 PIPE_BODY_WIDTH = 64
 PIPE_HEAD_WIDTH = 69
