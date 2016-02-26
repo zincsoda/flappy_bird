@@ -17,7 +17,7 @@ class Background:
 
 SPLASH_WIDTH = 184
 SPLASH_HEIGHT = 267
-SPLASH_IMAGE = "https://raw.githubusercontent.com/sourabhv/FlapPyBird/master/assets/sprites/message.png"
+SPLASH_IMAGE = "https://raw.githubusercontent.com/zincsoda/flappy_bird/master/splash.png"
 class Splash:
     def __init__(self):
         self.splash = simplegui.load_image(SPLASH_IMAGE)
